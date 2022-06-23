@@ -12,16 +12,24 @@ foodRouterV2.put('/foodv2', bearer, acl('update'), updateFood);
 foodRouterV2.delete('/foodv2', bearer, acl('delete'), deleteFood);
 
 async function getFood(req, res){
-    res.send('You are authorized to --> read');
+    let allRecords = await req.foodv2.get();
+    res.status(200).json(allRecords);
 }
 async function createFood(req, res){
-    res.send('You are authorized to --> create');
+    let obj = req.body;
+    let newRecord = await req.foodv2.create(obj);
+    res.status(201).json(newRecord);
 }
 async function updateFood(req, res){
-    res.send('You are authorized to --> update');
+    const id = req.params.id;
+    const obj = req.body;
+    let updatedRecord = await req.foodv2.update(id, obj)
+    res.status(201).json(updatedRecord);
 }
 async function deleteFood(req, res){
-    res.send('You are authorized to --> delete');
+    let id = req.params.id;
+    let deletedRecord = await req.foodv2.delete(id);
+    res.status(204).json(deletedRecord);
 }
 
 module.exports = foodRouterV2;
