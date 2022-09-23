@@ -1,4 +1,4 @@
-# *Authentication-API *
+# **Authentication-API**
 ---
 
 ### **Summary work of the application**
